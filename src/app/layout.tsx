@@ -1,7 +1,10 @@
-import "~/styles/globals.css";
+import "@/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import { NavBar } from "@/components/navbar/navbar";
+import { Sidebar } from "@/components/sidebar/sidebar";
+import { inter } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -14,7 +17,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+      <body className={`${inter.className} flex items-start justify-between`}>
+        <Sidebar />
+        <main className="grid h-full w-full pl-[300px]">
+          <NavBar />
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
