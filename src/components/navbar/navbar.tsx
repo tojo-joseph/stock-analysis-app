@@ -49,7 +49,7 @@ export function NavBar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {notifications.map((notification: any, key: number) => (
+            {notifications.map((notification, key: number) => (
               <DropdownMenuItem
                 key={key}
                 className="flex cursor-pointer items-start gap-2 p-1 px-3 py-2 transition hover:bg-neutral-50"
