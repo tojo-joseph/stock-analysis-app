@@ -24,7 +24,20 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 
-const menuList = [
+interface MenuItem {
+  optionKey: number;
+  link: string;
+  icon: JSX.Element;
+  text: string;
+}
+
+interface MenuGroup {
+  group: string;
+  key: number;
+  items: MenuItem[];
+}
+
+const menuList: MenuGroup[] = [
   {
     group: "General",
     key: 0,
@@ -88,10 +101,10 @@ export function Sidebar() {
       <div className="grow">
         <Command>
           <CommandList>
-            {menuList.map((menu: any, key: number) => (
-              <CommandGroup key={key} heading={menu.group}>
-                {menu.items.map((option: any, optionKey: number) => (
-                  <CommandItem key={optionKey} className="flex gap-2">
+            {menuList.map((menu) => (
+              <CommandGroup key={menu.key} heading={menu.group}>
+                {menu.items.map((option) => (
+                  <CommandItem key={option.optionKey} className="flex gap-2">
                     {option.icon}
                     {option.text}
                   </CommandItem>

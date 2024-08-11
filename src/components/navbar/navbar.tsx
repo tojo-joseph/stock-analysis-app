@@ -7,14 +7,18 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 
+interface Notification {
+  text: string;
+  date: string;
+  read: boolean;
+}
+
 export function NavBar() {
-  const [notifications, setNotifications] = useState<any>([
+  const [notifications, setNotifications] = useState<Notification[]>([
     {
       text: "This is a notification",
       date: "02-01-2015",
@@ -39,7 +43,7 @@ export function NavBar() {
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon" className="relative">
               <div
-                className={`absolute -right-1 -top-2 my-1 h-3 w-3 rounded-full ${notifications.find((x: any) => x.read === true) ? "bg-green-500" : "bg-neutral-500"}`}
+                className={`absolute -right-1 -top-2 my-1 h-3 w-3 rounded-full ${notifications.find((x) => x.read === true) ? "bg-green-500" : "bg-neutral-500"}`}
               ></div>
               <Bell className="h-4 w-4" />
             </Button>
