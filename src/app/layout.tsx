@@ -21,7 +21,7 @@ export default function RootLayout({
         <Sidebar />
         <main className="grid h-full w-full pl-[300px]">
           <NavBar />
-          {children}
+          <div className="p-8">{children}</div>
         </main>
       </body>
     </html>
