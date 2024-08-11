@@ -96,7 +96,7 @@ const menuList: MenuGroup[] = [
 
 export function Sidebar() {
   return (
-    <div className="fixed flex min-h-screen w-[300px] min-w-[300px] flex-col gap-4 border-r p-4">
+    <div className="fixed flex min-h-screen w-[300px] min-w-[300px] flex-col gap-4 p-4">
       {/* <div>User Item</div> */}
       <div className="grow">
         <Command>
