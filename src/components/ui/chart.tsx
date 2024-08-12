@@ -346,7 +346,7 @@ function getPayloadConfigFromPayload(
     key in payloadPayload &&
     typeof payloadPayload[key] === "string"
   ) {
-    configLabelKey = payloadPayload[key] as string;
+    configLabelKey = payloadPayload[key];
   }
 
   return configLabelKey in config ? config[configLabelKey] : config[key];
