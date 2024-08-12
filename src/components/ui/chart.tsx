@@ -331,7 +331,7 @@ function getPayloadConfigFromPayload(
     return undefined;
   }
 
-  const payloadPayload = (payload as { payload?: Record<string, any> })
+  const payloadPayload = (payload as { payload?: Record<string, unknown> })
     ?.payload;
 
   let configLabelKey: string = key;
@@ -344,11 +344,9 @@ function getPayloadConfigFromPayload(
   } else if (
     payloadPayload &&
     key in payloadPayload &&
-    typeof payloadPayload[key as keyof typeof payloadPayload] === "string"
+    typeof payloadPayload[key] === "string"
   ) {
-    configLabelKey = payloadPayload[
-      key as keyof typeof payloadPayload
-    ] as string;
+    configLabelKey = payloadPayload[key] as string;
   }
 
   return configLabelKey in config ? config[configLabelKey] : config[key];
