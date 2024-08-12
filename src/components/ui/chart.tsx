@@ -8,15 +8,16 @@ import { cn } from "@/lib/utils";
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
 
-export type ChartConfig = {
-  [k: string]: {
+export type ChartConfig = Record<
+  string,
+  {
     label?: React.ReactNode;
     icon?: React.ComponentType;
   } & (
     | { color?: string; theme?: never }
     | { color?: never; theme: Record<keyof typeof THEMES, string> }
-  );
-};
+  )
+>;
 
 type ChartContextProps = {
   config: ChartConfig;
@@ -192,7 +193,8 @@ const ChartTooltipContent = React.forwardRef<
           {payload.map((item, index) => {
             const key = `${nameKey ?? item.name ?? item.dataKey ?? "value"}`;
             const itemConfig = getPayloadConfigFromPayload(config, item, key);
-            const indicatorColor = color ?? item.payload.fill ?? item.color;
+            const indicatorColor =
+              color ?? (item.payload as { fill?: string })?.fill ?? item.color;
 
             return (
               <div
@@ -290,7 +292,7 @@ const ChartLegendContent = React.forwardRef<
         )}
       >
         {payload.map((item) => {
-          const key = `${nameKey ?? item.dataKey ?? "value"}`;
+          const key = `${String(nameKey ?? item.dataKey ?? "value")}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
           return (
