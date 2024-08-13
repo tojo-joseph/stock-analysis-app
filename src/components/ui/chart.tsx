@@ -2,8 +2,12 @@
 
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
+import { Payload } from "recharts/types/component/DefaultTooltipContent";
 
 import { cn } from "@/lib/utils";
+
+type ValueType = number | string | Array<number | string>; // Adjust based on your data type
+type NameType = string;
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
@@ -192,7 +196,11 @@ const ChartTooltipContent = React.forwardRef<
         <div className="grid gap-1.5">
           {payload.map((item, index) => {
             const key = `${nameKey ?? item.name ?? item.dataKey ?? "value"}`;
-            const itemConfig = getPayloadConfigFromPayload(config, item, key);
+            const itemConfig = getPayloadConfigFromPayload(
+              config,
+              item as Payload<ValueType, NameType>,
+              key,
+            );
             const indicatorColor =
               color ?? (item.payload as { fill?: string })?.fill ?? item.color;
 
@@ -333,8 +341,9 @@ function getPayloadConfigFromPayload(
     return undefined;
   }
 
-  const payloadPayload = (payload as { payload?: Record<string, unknown> })
-    ?.payload;
+  const payloadPayload = (payload as Payload<ValueType, NameType>).payload as
+    | Record<string, unknown>
+    | undefined;
 
   let configLabelKey: string = key;
 
