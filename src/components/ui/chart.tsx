@@ -5,14 +5,6 @@ import * as RechartsPrimitive from "recharts";
 
 import { cn } from "@/lib/utils";
 
-interface CustomTooltipPayload {
-  name?: string;
-  value?: any;
-  color?: string;
-  payload?: Record<string, any>;
-  dataKey?: string;
-}
-
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
 
@@ -148,7 +140,7 @@ const ChartTooltipContent = React.forwardRef<
         return null;
       }
 
-      const [item] = payload as CustomTooltipPayload[];
+      const [item] = payload;
       if (!item) {
         return null;
       }
