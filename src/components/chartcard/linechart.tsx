@@ -1,86 +1,61 @@
 "use client";
+import React from "react";
+import dynamic from "next/dynamic";
+import { ApexOptions } from "apexcharts";
+import { Card, CardContent } from "../ui/card";
 
-import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+// Dynamically import ReactApexChart with no SSR to avoid window is not defined error
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+});
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+const CandlestickChart = () => {
+  const series = [
+    {
+      data: [
+        { x: new Date(1538778600000), y: [6629.81, 6650.5, 6623.04, 6633.33] },
+        { x: new Date(1538780400000), y: [6632.01, 6643.59, 6620, 6630.11] },
+        // ... (rest of the data points)
+        { x: new Date(1538884800000), y: [6604.98, 6606, 6604.07, 6606] },
+      ],
+    },
+  ];
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-];
+  const options = {
+    chart: {
+      type: "candlestick",
+      height: 350,
+    },
+    title: {
+      text: "CandleStick Chart",
+      align: "left",
+    },
+    xaxis: {
+      type: "datetime",
+    },
+    yaxis: {
+      tooltip: {
+        enabled: true,
+      },
+    },
+  };
 
-const chartConfig: ChartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-};
-
-export function LineChartCard() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Line Chart - Linear</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <LineChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value: string) => value.slice(0, 3)}
+    <Card className="">
+      <CardContent className="p-6">
+        <div>
+          <div id="chart">
+            <ReactApexChart
+              options={options}
+              series={series}
+              type="candlestick"
+              height={350}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Line
-              dataKey="desktop"
-              type="linear"
-              stroke="var(--color-desktop)"
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
-        </ChartContainer>
+          </div>
+        </div>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
     </Card>
   );
-}
+};
+
+export default CandlestickChart;

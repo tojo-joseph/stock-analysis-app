@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Binoculars,
   BriefcaseBusiness,
@@ -23,6 +25,9 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { NavigationLink } from "../navlink/navlink";
 
 interface MenuItem {
   optionKey: number;
@@ -50,7 +55,7 @@ const menuList: MenuGroup[] = [
       },
       {
         optionKey: 1,
-        link: "/",
+        link: "/marketwatch",
         icon: <Binoculars />,
         text: "Market Watch",
       },
@@ -95,6 +100,7 @@ const menuList: MenuGroup[] = [
 ];
 
 export function Sidebar() {
+  const router = useRouter();
   return (
     <div className="fixed flex min-h-screen w-[300px] min-w-[300px] flex-col gap-4 p-4">
       {/* <div>User Item</div> */}
@@ -104,9 +110,15 @@ export function Sidebar() {
             {menuList.map((menu) => (
               <CommandGroup key={menu.key} heading={menu.group}>
                 {menu.items.map((option) => (
-                  <CommandItem key={option.optionKey} className="flex gap-2">
-                    {option.icon}
-                    {option.text}
+                  <CommandItem
+                    asChild
+                    key={option.optionKey}
+                    className="flex cursor-pointer gap-2"
+                  >
+                    <NavigationLink href={option.link}>
+                      {option.icon}
+                      {option.text}
+                    </NavigationLink>
                   </CommandItem>
                 ))}
               </CommandGroup>
