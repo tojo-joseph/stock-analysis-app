@@ -1,4 +1,3 @@
-import CandlestickChart from "@/components/chartcard/linechart";
 import { PieChartCard } from "@/components/chartcard/piechart";
 import { Card, CardContent } from "@/components/ui/card";
 
