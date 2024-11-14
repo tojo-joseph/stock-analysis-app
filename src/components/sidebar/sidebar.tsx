@@ -113,7 +113,7 @@ export function Sidebar() {
                   <CommandItem
                     asChild
                     key={option.optionKey}
-                    className="flex cursor-pointer gap-2"
+                    className="flex cursor-pointer gap-2 !bg-white hover:!bg-gray-200 focus:!bg-gray-200"
                   >
                     <NavigationLink href={option.link}>
                       {option.icon}
