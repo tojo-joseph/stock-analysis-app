@@ -27,6 +27,13 @@ export default function HomePage() {
             </CardContent>
           </Card>
         </div>
+        <div className="col-span-1 row-span-1">
+          <Card>
+            <CardContent className="p-6">
+              <h1>WatchList</h1>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
