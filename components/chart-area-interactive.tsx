@@ -38,7 +38,7 @@ const chartConfig = {
 
 interface TradeDataPoint {
   time: string;
-  aapl: number;
+  btcusdt: number;
 }
 
 interface ChartData {
@@ -58,14 +58,16 @@ export default function StockChart(props: ChartData) {
         </div>
         <div className="flex">
           <button
-            data-active={props.activeChart === "aapl"}
+            data-active={props.activeChart === "btcusdt"}
             className="data-[active=true]:bg-muted/50 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left sm:px-8 sm:py-6"
-            onClick={() => props.setActiveChart("aapl")}
+            onClick={() => props.setActiveChart("btcusdt")}
           >
-            <span className="text-muted-foreground text-xs">AAPL</span>
+            <span className="text-muted-foreground text-xs">
+              BINANCE:BTCUSDT
+            </span>
             <span className="text-lg leading-none font-bold sm:text-3xl">
               {props.chartData.length > 0
-                ? props.chartData.at(-1)?.aapl.toFixed(2)
+                ? props.chartData.at(-1)?.btcusdt.toFixed(2)
                 : "Loading..."}
             </span>
           </button>

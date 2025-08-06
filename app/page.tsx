@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import DashboardMain from "./dashboard/page";
 import { useAuth } from "./context/AuthContext";
 import LoginPage from "./login/page";

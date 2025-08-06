@@ -25,12 +25,13 @@ interface TradeData {
   v: number; // volume
 }
 
-export default function DashboardMain({ symbol }: { symbol: string }) {
+export default function DashboardMain() {
   const [price, setPrice] = useState<number | null>(null);
-  const [chartData, setChartData] = useState<{ time: string; aapl: number }[]>(
-    []
-  );
-  const [activeChart, setActiveChart] = useState("aapl");
+  const [chartData, setChartData] = useState<
+    { time: string; btcusdt: number }[]
+  >([]);
+  const [symbol, setSymbol] = useState("BINANCE:BTCUSDT");
+  const [activeChart, setActiveChart] = useState("btcusdt");
 
   const [priceArray, setPriceArray] = useState([]);
   const token = process.env.NEXT_PUBLIC_FINNHUB_API_KEY;
@@ -44,7 +45,9 @@ export default function DashboardMain({ symbol }: { symbol: string }) {
     const socket = new WebSocket(`wss://ws.finnhub.io?token=${token}`);
 
     socket.addEventListener("open", () => {
-      socket.send(JSON.stringify({ type: "subscribe", symbol: "AAPL" }));
+      socket.send(
+        JSON.stringify({ type: "subscribe", symbol: "BINANCE:BTCUSDT" })
+      );
     });
 
     socket.addEventListener("message", (event) => {
@@ -57,13 +60,15 @@ export default function DashboardMain({ symbol }: { symbol: string }) {
 
         setChartData((prev) => [
           ...prev.slice(-49), // keep last 50 points max
-          { time, aapl: trade.p },
+          { time, btcusdt: trade.p },
         ]);
       }
     });
 
     return () => {
-      socket.send(JSON.stringify({ type: "unsubscribe", symbol: "AAPL" }));
+      socket.send(
+        JSON.stringify({ type: "unsubscribe", symbol: "BINANCE:BTCUSDT" })
+      );
       socket.close();
     };
   }, [symbol, token]);
@@ -101,7 +106,7 @@ export default function DashboardMain({ symbol }: { symbol: string }) {
                 chartData={chartData}
                 activeChart={activeChart}
                 setActiveChart={setActiveChart}
-                symbol="AAPL"
+                symbol="BINANCE:BTCUSDT"
               />
             </div>
 
